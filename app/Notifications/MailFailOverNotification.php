@@ -3,22 +3,23 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Log;
 
-class MailFailOverNotification extends Notification implements ShouldQueue
+class MailFailOverNotification extends Notification
 {
     use Queueable;
 
     private $title;
     private $text;
+    private $mailer;
 
-    public function __construct($title, $text)
+    public function __construct($title, $text, $mailer)
     {
         $this->title = $title;
         $this->text = $text;
+        $this->mailer = $mailer;
     }
 
     public function via($notifiable)
@@ -26,39 +27,18 @@ class MailFailOverNotification extends Notification implements ShouldQueue
         return ['mail'];
     }
 
-
     public function toMail($notifiable)
     {
-        // Inicializa un arreglo vacío para almacenar los servicios de correo habilitados
-        $mailers = [];
+        try {
+            $mailMessage = (new MailMessage)
+                ->mailer($this->mailer)
+                ->subject($this->title)
+                ->line($this->text);
 
-        // Verifica si Mailgun está configurado
-        if (env('MAILGUN_USERNAME') && env('MAILGUN_PASSWORD')) {
-            $mailers[] = 'mailgun';
+            return $mailMessage;
+        } catch (\Exception $e) {
+            Log::error("Failed to send email: " . $e->getMessage());
+            throw $e;
         }
-
-        // Verifica si SendGrid está configurado
-        if (env('SENDGRID_USERNAME') && env('SENDGRID_PASSWORD')) {
-            $mailers[] = 'sendgrid';
-        }
-
-        // Asegúrate de tener al menos un servicio de correo electrónico configurado
-        if (empty($mailers)) {
-            Log::error('No mailers settings found');
-            return null;
-        }
-
-        foreach ($mailers as $mailer) {
-            try {
-                return (new MailMessage)
-                    ->mailer($mailer)
-                    ->subject($this->title)
-                    ->line($this->text);
-            } catch (\Exception $e) {
-                Log::warning("Failed to send email using $mailer: " . $e->getMessage());
-            }
-        }
-
-        return null;
     }
 }

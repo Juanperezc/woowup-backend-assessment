@@ -64,6 +64,14 @@ return [
             'password' => env('SENDGRID_PASSWORD'),
   
         ],
+
+        'sparkpostmail' => [
+            'transport' => 'smtp',
+            'host' => 'smtp.sparkpostmail.com',
+            'encryption' => 'STARTTLS',
+            'username' => env('SPARKPOST_USERNAME'),
+            'password' => env('SPARKPOST_PASSWORD'),
+        ],
         'postmark' => [
             'transport' => 'postmark',
             // 'client' => [

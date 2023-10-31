@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SendMailFailOverRequest;
 
-use App\Notifications\MailFailOverNotification;
-use Illuminate\Support\Facades\Notification;
+use App\Jobs\MailFailOverJob;
 
 class MailController extends Controller
 {
@@ -17,7 +16,7 @@ class MailController extends Controller
         $emailAddresses = $validatedData['emailAddresses'];
 
         foreach ($emailAddresses as $email) {
-            Notification::route('mail', $email)->notify(new MailFailOverNotification($title, $text));
+             MailFailOverJob::dispatch($title, $text, $email);
         }
 
         return response()->json(['status' => 'success'], 200);

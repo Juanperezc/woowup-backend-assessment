@@ -1,11 +1,10 @@
 <?php
 
 use Biscolab\ReCaptcha\Facades\ReCaptcha;
-use Illuminate\Support\Facades\Mail;
 use function Pest\Laravel\{postJson};
 use Illuminate\Support\Facades\Notification;
 
- $route = '/api/v1/send-mail-failover';
+$route = '/api/v1/send-mail-failover';
 it('fails validation with no data', function () use($route) {
     $response = postJson($route, []);
 
@@ -14,10 +13,10 @@ it('fails validation with no data', function () use($route) {
 
 it('sends mail successfully with valid data', function () use ($route) {
 
-      ReCaptcha::shouldReceive('validate')
-             ->once()
-             ->andReturnTrue();
-      Notification::fake();
+    ReCaptcha::shouldReceive('validate')
+            ->once()
+            ->andReturnTrue();
+    Notification::fake();
     $payload = [
         'title' => 'Test Title',
         'text' => 'Test Text',

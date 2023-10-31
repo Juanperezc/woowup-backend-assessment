@@ -34,14 +34,15 @@ class MailFailOverJob implements ShouldQueue
         $mailers = [];
 
     
-
+        if (env('MAILGUN_USERNAME') && env('MAILGUN_PASSWORD')) {
+            $mailers[] = 'mailgun';
+        }
+        
         if (env('SPARKPOST_USERNAME') && env('SPARKPOST_PASSWORD')) {
             $mailers[] = 'sparkpostmail';
         }
 
-        if (env('MAILGUN_USERNAME') && env('MAILGUN_PASSWORD')) {
-            $mailers[] = 'mailgun';
-        }
+       
       
 
         foreach ($mailers as $mailer) {

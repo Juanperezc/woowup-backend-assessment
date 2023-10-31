@@ -1,4 +1,4 @@
-# Email Failover Service with Queue Support and Captcha
+# Woowup Backend Assessment
 
 ## About
 

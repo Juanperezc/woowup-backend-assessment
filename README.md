@@ -15,7 +15,7 @@ The README provides a concise and clear explanation of the problem the service s
 ## Features
 
 - Asynchronous email sending using job queues
-- Supports SendGrid and Mailgun as email providers
+- Supports SPARKPOST and Mailgun as email providers
 - Automatic failover between providers
 - RESTful API with detailed documentation
 - Minimal front-end for demonstration and testing
@@ -28,7 +28,7 @@ The README provides a concise and clear explanation of the problem the service s
 - Docker
 - Laravel Sail
 - Google reCAPTCHA account ([register here](https://www.google.com/recaptcha))
-- SendGrid account ([register here](https://sendgrid.com/user/signup))
+- SPARKPOST account ([register here](https://app.sparkpost.com/dashboard))
 - Mailgun account ([register here](http://www.mailgun.com))
 
 ## Technical Choices
@@ -42,8 +42,7 @@ The technology stack includes PHP 8.2, Laravel, Docker, and Laravel Sail, all of
 First, clone the repository:
 
 ```bash
-git clone https://github.com/yourrepo/email-failover-service.git
-cd email-failover-service
+git clone https://github.com/Juanperezc/woowup-backend-assessment
 ```
 
 Copy the `.env.example` to create your own `.env`:
@@ -52,7 +51,7 @@ Copy the `.env.example` to create your own `.env`:
 cp .env.example .env
 ```
 
-Update the `.env` file with your Google reCAPTCHA, SendGrid and Mailgun credentials.
+Update the `.env` file with your Google reCAPTCHA, SPARKPOST and Mailgun credentials.
 
 Run Laravel Sail to install the dependencies and start the service:
 
@@ -88,7 +87,7 @@ This application can be easily deployed using Docker containers, as set up with 
 
 ## API Documentation
 
-Please refer to `APIdocs` for a detailed description of API endpoints and their usage.
+[SWAGGER URL](https://woowup-assessment-api.juan-perez.me/api/documentation)
 
 ## Contributing
 

@@ -54,7 +54,6 @@ return [
             'host' => 'smtp.mailgun.org',
             'username' => env('MAILGUN_USERNAME'),
             'password' => env('MAILGUN_PASSWORD'),
-            // ... otros campos
         ],
 
         'sendgrid' => [
@@ -68,7 +67,7 @@ return [
         'sparkpostmail' => [
             'transport' => 'smtp',
             'host' => 'smtp.sparkpostmail.com',
-            'encryption' => 'STARTTLS',
+            'encryption' => 'tls',
             'username' => env('SPARKPOST_USERNAME'),
             'password' => env('SPARKPOST_PASSWORD'),
         ],

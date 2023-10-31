@@ -33,6 +33,8 @@ class MailFailOverJob implements ShouldQueue
     {
         $mailers = [];
 
+    
+
         if (env('SPARKPOST_USERNAME') && env('SPARKPOST_PASSWORD')) {
             $mailers[] = 'sparkpostmail';
         }
@@ -40,6 +42,7 @@ class MailFailOverJob implements ShouldQueue
         if (env('MAILGUN_USERNAME') && env('MAILGUN_PASSWORD')) {
             $mailers[] = 'mailgun';
         }
+      
 
         foreach ($mailers as $mailer) {
             try {
